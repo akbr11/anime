@@ -1,8 +1,8 @@
-import { Gabarito } from "next/font/google";
+import { Lato } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Util/Navbar";
 
-const gabarito = Gabarito({ subsets: ["latin"] });
+const lato = Lato({ subsets: ["latin"], weight: ["300", "400"] });
 
 export const metadata = {
   title: "Anime",
@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${gabarito.className} bg-color-dark`}
+        className={`${lato.className} bg-color-dark`}
         suppressHydrationWarning={true}
       >
         <Navbar />

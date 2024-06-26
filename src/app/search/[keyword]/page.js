@@ -1,6 +1,6 @@
 // "use client";
-import AnimeList from "@/components/AnimeList";
-import Header from "@/components/AnimeList/Header";
+import AnimeList from "@/components/Header";
+import Header from "@/components/Header";
 
 export default async function Page({ params }) {
   const { keyword } = params;
