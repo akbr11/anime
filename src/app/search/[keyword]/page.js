@@ -1,6 +1,7 @@
-// "use client";
 import AnimeList from "@/components/Header";
 import Header from "@/components/Header";
+import Search from "@/components/Search";
+import Row from "@/components/Util/Row";
 
 export default async function Page({ params }) {
   const { keyword } = params;
@@ -11,10 +12,9 @@ export default async function Page({ params }) {
 
   return (
     <>
-      <section>
-        <Header title={`Pencarian untuk ${keyword}`} />
-        <AnimeList api={searchAnime} />
-      </section>
+      {/* <Header /> */}
+      {/* <Row title={"Populer"} api={searchAnime} /> */}
+      <Search keyword={searchAnime} title={keyword} />
     </>
   );
 }

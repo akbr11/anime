@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <div className="w-full h-[550px] text-white">
       <div className="w-full h-full">
-        <div className="absolute w-full h-[550px] bg-gradient-to-tr from-black"></div>
+        <div className="absolute w-full h-[550px] bg-gradient-to-r from-black"></div>
         <Image
           src={"/bg1.jpg"}
           width={1028}

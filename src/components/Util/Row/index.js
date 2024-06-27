@@ -1,16 +1,7 @@
-"use client";
 import Anime from "@/components/Anime";
-import React, { useEffect, useState } from "react";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 
-export default async function Row({ title }) {
-  const [topAnime, setTopAnime] = useState([]);
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?limit=8`).then(
-      (res) => res.json().then((data) => setTopAnime(data))
-    );
-  }, []);
-
+export default function Row({ title, api }) {
   const slideLeft = () => {
     let slider = document.getElementById("slider");
     slider.scrollLeft = slider.scrollLeft - 500;
@@ -34,7 +25,7 @@ export default async function Row({ title }) {
           id={"slider"}
           className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
         >
-          {topAnime.data?.map((anime, id) => (
+          {api.data?.map((anime, id) => (
             <Anime key={id} anime={anime} />
           ))}
         </div>
