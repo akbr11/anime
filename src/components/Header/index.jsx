@@ -14,7 +14,7 @@ export default function Header() {
           priority
           alt="..."
         />
-        <div className="absolute w-full top-[35%] md:top-[30%] p-5 md:p-8">
+        <div className="absolute w-full top-[30%] md:top-[25%] p-5 md:p-8">
           <h1 className="text-2xl md:text-3xl font-bold text-color-primary grid sm:grid-cols-3">
             Get access to millions of writings from all over the world
           </h1>

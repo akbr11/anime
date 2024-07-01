@@ -25,9 +25,24 @@ export default function Row({ title, api }) {
           id={"slider"}
           className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
         >
-          {api.data?.map((anime, id) => (
-            <Anime key={id} anime={anime} />
-          ))}
+          {api.data?.length > 0 ? (
+            <>
+              {api.data.map((anime, id) => (
+                <Anime key={id} anime={anime} />
+              ))}
+            </>
+          ) : (
+            <>
+              {[...Array(6)].map((_, id) => (
+                <div
+                  className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block m-1 animate-pulse"
+                  key={id}
+                >
+                  <div className="bg-slate-300 w-full h-[160px] sm:h-[200px] md:h-[240px] lg:h-[280px] rounded-lg"></div>
+                </div>
+              ))}
+            </>
+          )}
         </div>
         <FaCircleChevronRight
           onClick={slideRight}

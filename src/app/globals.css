@@ -14,6 +14,56 @@ body {
   background-color: #000;
 }
 
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-container {
+  display: flex;
+  align-items: center;
+  /* background-color: #fff; */
+  /* border: 1px solid #ccc; */
+  /* border-radius: 4px; */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  padding: 4px;
+  transition: width 0.3s ease-in-out;
+  width: 40px; /* Initial width when closed */
+  overflow: hidden;
+}
+
+.search-input-container.open {
+  width: 300px; /* Width when opened */
+}
+
+.search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-right: 4px; /* Adjust for spacing inside the input container */
+  transition: transform 0.3s;
+}
+
+.search-button:hover {
+  transform: scale(1.1);
+}
+
+.search-input {
+  border-radius: 5px;
+  outline-color: #fff;
+  background-color: #000;
+  outline: none;
+  padding: 4px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.search-input::placeholder {
+  color: #fff;
+}
+
 img {
   transition: 0.3s ease all;
   -webkit-transition: 0.3s ease all;
