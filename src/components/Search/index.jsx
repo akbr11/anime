@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,7 +10,7 @@ export default function Search({ title, keyword }) {
       </h2>
       <div className="relative flex items-center h-full">
         <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4 px-4">
-          {keyword.data.map((anime) => {
+          {keyword.data?.map((anime) => {
             return (
               <div key={anime.mal_id}>
                 <Link href={`/${anime.mal_id}`} className="cursor-pointer">

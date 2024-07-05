@@ -8,7 +8,7 @@ export default function Navbar({ params }) {
     <header
       className={`${
         key === "/" ? "" : "bg-black"
-      } flex md:flex-row flex-col justify-between md:items-center p-5 gap-2 z-[100] absolute w-full`}
+      } flex md:flex-row flex-col justify-between md:items-center p-5 gap-2 z-[10] absolute w-full`}
     >
       <Link
         href={"/"}
