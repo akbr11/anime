@@ -1,12 +1,15 @@
+"use client";
 import useAnimeDetail from "@/hooks/useAnime";
+import useInfoModal from "@/hooks/useInfoModal";
 import React, { useCallback, useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa6";
 import { IoCloseOutline } from "react-icons/io5";
+import YouTube from "react-youtube";
 
-const Modal = ({ visible, onClose, mal_id }) => {
+const Modal = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState(!!visible);
+  const { mal_id } = useInfoModal();
   const anime = useAnimeDetail(mal_id);
-
   useEffect(() => {
     setIsVisible(!!visible);
   }, [visible]);
@@ -29,11 +32,16 @@ const Modal = ({ visible, onClose, mal_id }) => {
           } transform duration-300 relative flex-auto bg-zinc-900 drop-shadow-md `}
         >
           <div className="relative h-96">
-            <video
-              className="w-full brightness-[60%] h-full"
-              // src={anime.trailer_url}
-              // controls
-            ></video>
+            <div className="w-full h-full brightness-[60%] object-cover">
+              <YouTube
+                videoId={anime.data?.trailer.youtube_id}
+                onReady={(e) => e.target.playVideo()}
+                opts={{
+                  width: "780",
+                  height: "400",
+                }}
+              />
+            </div>
             <div
               onClick={handleClose}
               className="cursor-pointer absolute top-3 right-3 h-10 w-10 rounded-full bg-black bg-opacity-70 flex items-center justify-center"
@@ -54,8 +62,10 @@ const Modal = ({ visible, onClose, mal_id }) => {
           </div>
           <div className="px-12 py-8">
             <p className="text-green-400 font-semibold text-lg">New</p>
-            {/* <p className="text-white text-lg">{anime.duration}</p>
-            <p className="text-white text-lg">{anime.synopsis}</p> */}
+            <p className="text-white text-lg">{anime.data?.duration}</p>
+            <p className="text-white text-lg">
+              {anime.data?.synopsis.substring(0, 250)} ...
+            </p>
           </div>
         </div>
       </div>

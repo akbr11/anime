@@ -1,13 +1,12 @@
 import useInfoModal from "@/hooks/useInfoModal";
 import Image from "next/image";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 
 const Anime = ({ anime }) => {
   const { onOpen } = useInfoModal();
   const handleOpenModal = useCallback(() => {
-    onOpen(anime?.mal_id);
-  }, [onOpen, anime?.mal_id]);
-
+    onOpen(anime.mal_id);
+  }, [onOpen, anime.mal_id]);
   return (
     <div
       onClick={handleOpenModal}

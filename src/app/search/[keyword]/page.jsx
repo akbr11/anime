@@ -1,4 +1,4 @@
-import { getTopAnimeResponse } from "@/app/libs/api";
+import { getTopAnimeResponse } from "@/libs/api";
 import Search from "@/components/Search";
 
 export default async function Page({ params }) {

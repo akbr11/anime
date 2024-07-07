@@ -1,3 +1,4 @@
+"use client";
 import Anime from "@/components/Anime";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 
