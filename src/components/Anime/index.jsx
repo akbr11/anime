@@ -16,7 +16,7 @@ const fetchAnimeDetail = async (animeId) => {
   }
 };
 
-const Anime = ({ title, api }) => {
+const Anime = ({ rowId, title, api }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedAnime, setSelectedAnime] = useState(null);
   const [animeDetails, setAnimeDetails] = useState(null);
@@ -33,12 +33,12 @@ const Anime = ({ title, api }) => {
   };
 
   const slideLeft = () => {
-    let slider = document.getElementById("slider");
+    let slider = document.getElementById("slider" + rowId);
     slider.scrollLeft = slider.scrollLeft - 500;
   };
 
   const slideRight = () => {
-    let slider = document.getElementById("slider");
+    let slider = document.getElementById("slider" + rowId);
     slider.scrollLeft = slider.scrollLeft + 500;
   };
 
@@ -52,7 +52,7 @@ const Anime = ({ title, api }) => {
           size={40}
         />
         <div
-          id="slider"
+          id={`slider` + rowId}
           className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
         >
           {api.data?.length > 0 ? (

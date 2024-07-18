@@ -1,5 +1,6 @@
 "use client";
-import { FaPlay } from "react-icons/fa6";
+import Link from "next/link";
+import { CgDetailsMore } from "react-icons/cg";
 import { IoCloseOutline } from "react-icons/io5";
 import YouTube from "react-youtube";
 
@@ -33,12 +34,15 @@ const Modal = ({ detailAnime, onClose, open }) => {
               <p className="text-white text-2xl md:text-3xl h-full lg:text-4xl font-bold mb-8">
                 {detailAnime.data?.title}
               </p>
-              {/* <div className="flex flex-row gap-4 items-center">
-                <button className="w-28 bg-white rounded-md h-10 font-bold flex items-center justify-center gap-3">
-                  <FaPlay />
-                  Play
-                </button>
-              </div> */}
+              <div className="flex flex-row gap-4 items-center">
+                <Link
+                  href={`/anime/${detailAnime.data?.mal_id}`}
+                  className="w-28 bg-green-500 text-white rounded-md h-10 font-bold flex items-center justify-center gap-3"
+                >
+                  <CgDetailsMore />
+                  Detail
+                </Link>
+              </div>
             </div>
           </div>
           <div className="px-12 py-8">
