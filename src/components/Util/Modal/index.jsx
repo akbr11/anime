@@ -1,13 +1,18 @@
 "use client";
 import Link from "next/link";
+import { useState } from "react";
 import { CgDetailsMore } from "react-icons/cg";
 import { IoCloseOutline } from "react-icons/io5";
-import YouTube from "react-youtube";
 
 const Modal = ({ detailAnime, onClose, open }) => {
+  const [videoError, setVideoError] = useState(false);
+
+  // Menyiapkan URL video YouTube dengan parameter
+  const videoUrl = `https://www.youtube.com/embed/${detailAnime.data?.trailer.youtube_id}?rel=0&showinfo=0`;
+
   return (
     <div className="z-50 transition duration-300 bg-black bg-opacity-80 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0">
-      <div className="relative w-auto mx-auto max-w-3xl rounded-none overflow-hidden">
+      <div className="relative w-auto mx-auto max-w-xl rounded-none overflow-hidden">
         <div
           className={`${
             open ? "scale-100" : "scale-125"
@@ -15,14 +20,30 @@ const Modal = ({ detailAnime, onClose, open }) => {
         >
           <div className="relative h-96">
             <div className="w-full h-full brightness-[60%] object-cover">
-              <YouTube
-                videoId={detailAnime.data?.trailer.youtube_id}
-                onReady={(e) => e.target.pauseVideo()}
-                opts={{
-                  width: "780",
-                  height: "400",
-                }}
-              />
+              {videoError ? (
+                <div className="flex items-center justify-center h-full">
+                  <p className="text-white">
+                    Video could not be loaded.{" "}
+                    <a
+                      href={`https://www.youtube.com/watch?v=${detailAnime.data?.trailer.youtube_id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 underline"
+                    >
+                      Watch here
+                    </a>
+                    .
+                  </p>
+                </div>
+              ) : (
+                <iframe
+                  className="w-full h-full"
+                  src={videoUrl}
+                  allowFullScreen
+                  onError={() => setVideoError(true)}
+                  title="YouTube Video"
+                ></iframe>
+              )}
             </div>
             <div
               onClick={onClose}

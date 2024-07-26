@@ -7,26 +7,31 @@ import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 const fetchAnimeDetail = async (animeId) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/${`anime/${animeId}`}`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/anime/${animeId}`
     );
-    if (!res.ok) throw new Error("Failed Fetching data");
-    return res.json();
+    if (!res.ok) throw new Error("Failed fetching data");
+    return await res.json();
   } catch (error) {
-    throw new Error(error);
+    console.error("Error fetching anime detail:", error);
+    throw error;
   }
 };
 
 const Anime = ({ rowId, title, api }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedAnime, setSelectedAnime] = useState(null);
-  const [animeDetails, setAnimeDetails] = useState(null);
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    selectedAnime: null,
+    animeDetails: null,
+  });
 
   const handleAnimeClick = async (animeId) => {
     try {
       const details = await fetchAnimeDetail(animeId);
-      setAnimeDetails(details);
-      setSelectedAnime(animeId);
-      setIsOpen(true);
+      setModalState({
+        isOpen: true,
+        selectedAnime: animeId,
+        animeDetails: details,
+      });
     } catch (error) {
       console.error(error.message);
     }
@@ -42,9 +47,15 @@ const Anime = ({ rowId, title, api }) => {
     slider.scrollLeft = slider.scrollLeft + 500;
   };
 
+  if (!api || !api.data) {
+    return <div>Error: API data not available</div>;
+  }
+
   return (
-    <>
-      <h2 className="text-white font-bold md:text-2xl p-4">{title}</h2>
+    <div className="w-full mx-auto">
+      <div className="p-4 border-l-2">
+        <h2 className="text-white font-bold md:text-2xl">{title}</h2>
+      </div>
       <div className="relative flex items-center group">
         <FaCircleChevronLeft
           onClick={slideLeft}
@@ -52,16 +63,15 @@ const Anime = ({ rowId, title, api }) => {
           size={40}
         />
         <div
-          id={`slider` + rowId}
+          id={`slider${rowId}`}
           className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
         >
-          {api.data?.length > 0 ? (
-            <>
-              {api.data.map((anime, id) => (
+          {api.data.length > 0
+            ? api.data.map((anime, index) => (
                 <div
                   onClick={() => handleAnimeClick(anime.mal_id)}
                   className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
-                  key={id}
+                  key={`${anime.mal_id}-${index}`}
                 >
                   <Image
                     src={anime.images.jpg.large_image_url}
@@ -72,16 +82,13 @@ const Anime = ({ rowId, title, api }) => {
                     className="w-full rounded-lg max-h-[160px] sm:max-h-[200px] md:max-h-[240px] lg:max-h-[280px] object-cover block"
                   />
                   <div className="absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white">
-                    <p className="whitespace-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center">
+                    <p className="whitespace-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center p-2">
                       {anime.title}
                     </p>
                   </div>
                 </div>
-              ))}
-            </>
-          ) : (
-            <>
-              {[...Array(6)].map((_, id) => (
+              ))
+            : [...Array(6)].map((_, id) => (
                 <div
                   className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block m-1 animate-pulse"
                   key={id}
@@ -89,8 +96,6 @@ const Anime = ({ rowId, title, api }) => {
                   <div className="bg-slate-300 w-full h-[160px] sm:h-[200px] md:h-[240px] lg:h-[280px] rounded-lg"></div>
                 </div>
               ))}
-            </>
-          )}
         </div>
         <FaCircleChevronRight
           onClick={slideRight}
@@ -98,14 +103,14 @@ const Anime = ({ rowId, title, api }) => {
           size={40}
         />
       </div>
-      {isOpen && animeDetails && (
+      {modalState.isOpen && modalState.animeDetails && (
         <Modal
-          detailAnime={animeDetails}
-          onClose={() => setIsOpen(false)}
-          open={isOpen}
+          detailAnime={modalState.animeDetails}
+          onClose={() => setModalState({ ...modalState, isOpen: false })}
+          open={modalState.isOpen}
         />
       )}
-    </>
+    </div>
   );
 };
 

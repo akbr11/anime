@@ -17,15 +17,16 @@ const Page = async ({ params: { id } }) => {
   return (
     <>
       <div className="absolute top-[20%] md:top-[15%] px-5">
-        <div className="relative flex items-center h-full ">
-          <div className="w-full h-full">
+        <div className="relative flex items-center h-full">
+          <div className="w-full h-full mb-2">
             <h1 className="text-white text-lg md:text-3xl font-semibold">
               {details.data?.title}
             </h1>
           </div>
         </div>
-        <div className="w-full mx-auto px-52">
-          <div className="bg-gray-950 flex sm:flex-nowrap flex-wrap gap-4 p-5">
+
+        <div className="w-full flex justify-center border border-slate-800 shadow-lg rounded-3xl">
+          <div className="flex flex-col md:flex-row gap-4 p-3">
             <Image
               src={details.data?.images.jpg.large_image_url}
               alt="..."
